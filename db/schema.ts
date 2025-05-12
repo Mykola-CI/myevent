@@ -49,9 +49,7 @@ export const events = sqliteTable(
       .default('draft')
       .notNull(),
   },
-  (table) => ({
-    unq: unique().on(table.createdById, table.name),
-  })
+  (table) => [unique().on(table.createdById, table.name)]
 )
 
 export const eventsRelations = relations(events, ({ many, one }) => ({
@@ -86,9 +84,7 @@ export const rsvps = sqliteTable(
       .default('going')
       .notNull(),
   },
-  (table) => ({
-    unq: unique().on(table.attendeeId, table.eventId),
-  })
+  (table) => [unique().on(table.attendeeId, table.eventId)]
 )
 
 export const rsvpsRelations = relations(rsvps, ({ one }) => ({

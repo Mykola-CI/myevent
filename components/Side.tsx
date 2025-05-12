@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '@/images/pardy.png'
-import { Button } from '@nextui-org/react'
+import { Button } from "@heroui/react"
 
 const links = [
   { route: '/dashboard', name: 'Home' },

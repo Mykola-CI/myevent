@@ -1,7 +1,9 @@
 import Side from './Side'
 import Nav from './Nav'
 
-const Shell = ({ children }) => {
+import { ReactNode } from 'react';
+
+const Shell = ({ children }: { children: ReactNode }) => {
   return (
     <div className="flex w-screen h-screen">
       <aside className="w-[200px] min-w-[200px] max-w-[200px] h-full border-r border-default-50">

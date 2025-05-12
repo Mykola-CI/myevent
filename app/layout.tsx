@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import NextUIProvider from './NextUIProvider'
-import { cn } from '@nextui-org/react'
+import HeroUIProvider from './HeroUIProvider'
+import { cn } from "@heroui/react"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +21,7 @@ export default function RootLayout({
       <body
         className={`${inter.className} dark text-foreground bg-background h-screen w-screen`}
       >
-        <NextUIProvider>{children}</NextUIProvider>
+        <HeroUIProvider>{children}</HeroUIProvider>
       </body>
     </html>
   )

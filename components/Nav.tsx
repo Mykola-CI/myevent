@@ -1,6 +1,6 @@
 'use client'
-import { Input } from '@nextui-org/react'
-import { Button, Tooltip } from '@nextui-org/react'
+import { Input } from "@heroui/react"
+import { Button, Tooltip } from "@heroui/react"
 import { CirclePlus } from 'lucide-react'
 
 const Nav = () => {

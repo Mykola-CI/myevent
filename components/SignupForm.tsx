@@ -1,26 +1,55 @@
 'use client'
 
-import { Input } from '@nextui-org/react'
+import { registerUser, type ActionResponse } from '@/actions/auth'
+import { Input } from '@heroui/react'
 import Link from 'next/link'
+import { useActionState } from 'react'
+import SubmitButton from './SubmitButton'
+
+const initialState: ActionResponse = {
+  success: false,
+  message: '',
+  errors: {},
+  error: undefined,
+}
 
 const SignupForm = () => {
-  return (
-    <form className="bg-content1 border border-default-100 shadow-lg rounded-md p-3 flex flex-col gap-2 ">
-      <h3 className="my-4">Sign up</h3>
-      <Input fullWidth size="lg" placeholder="Email" name="email" required />
-      <Input
-        name="password"
-        fullWidth
-        size="lg"
-        type="password"
-        placeholder="Password"
-        required
-      />
+  const [state, formAction, isPending] = useActionState<
+    ActionResponse,
+    FormData
+  >(registerUser, initialState)
 
-      <div>
-        <Link href="/signin">{`Already have an account?`}</Link>
-      </div>
-    </form>
+  return (
+    <>
+      {isPending && <p>Processing your request...</p>}
+      <form
+        action={formAction}
+        className={`bg-content1 border border-default-100 shadow-lg rounded-md p-3 flex flex-col gap-2 ${
+          isPending ? 'opacity-50 pointer-events-none' : ''
+        }`}
+      >
+        <h3 className="my-4">Sign up</h3>
+        <Input fullWidth size="lg" placeholder="Email" name="email" required />
+        {state.errors?.email && (
+          <p className="text-red-500">{state.errors.email.join(', ')}</p>
+        )}
+        <Input
+          name="password"
+          fullWidth
+          size="lg"
+          type="password"
+          placeholder="Password"
+          required
+        />
+        {state.errors?.password && (
+          <p className="text-red-500">{state.errors.password.join(', ')}</p>
+        )}
+        <SubmitButton label={'Sign up'} isLoading={isPending} />
+        <div>
+          <Link href="/signin">{`Already have an account?`}</Link>
+        </div>
+      </form>
+    </>
   )
 }
 

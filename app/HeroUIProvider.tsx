@@ -1,9 +1,9 @@
 'use client'
 
-import { NextUIProvider } from '@nextui-org/react'
+import { HeroUIProvider } from "@heroui/react"
 
 const Providers = ({ children }: { children: React.ReactNode }) => {
-  return <NextUIProvider>{children}</NextUIProvider>
+  return <HeroUIProvider>{children}</HeroUIProvider>
 }
 
 export default Providers

@@ -63,7 +63,7 @@ const seedDatabase = async () => {
         newEvents.map((event) => ({
           attendeeId: attendee.id,
           eventId: event.id,
-          status: 'going',
+          status: 'going' as 'going',
         }))
       )
       .flat()
