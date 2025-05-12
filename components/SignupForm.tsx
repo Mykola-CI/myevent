@@ -4,6 +4,7 @@ import { registerUser, type ActionResponse } from '@/actions/auth'
 import { Input } from '@heroui/react'
 import Link from 'next/link'
 import { useActionState } from 'react'
+import { useRouter } from 'next/navigation'
 import SubmitButton from './SubmitButton'
 
 const initialState: ActionResponse = {
@@ -14,10 +15,20 @@ const initialState: ActionResponse = {
 }
 
 const SignupForm = () => {
+  const router = useRouter()
   const [state, formAction, isPending] = useActionState<
     ActionResponse,
     FormData
-  >(registerUser, initialState)
+  >(async (prevState, formData) => {
+    const result = await registerUser(prevState, formData)
+
+    if (result.success) {
+      // Navigate to the dashboard on success
+      router.push('/dashboard')
+    }
+
+    return result
+  }, initialState)
 
   return (
     <>
