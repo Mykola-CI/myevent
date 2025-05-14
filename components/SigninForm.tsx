@@ -2,7 +2,6 @@
 import { Input } from '@heroui/react'
 import Link from 'next/link'
 import { useActionState } from 'react'
-import { useRouter } from 'next/navigation'
 import SubmitButton from './SubmitButton'
 import { signinUser, type ActionResponse } from '@/actions/auth'
 
@@ -14,23 +13,20 @@ const initialState: ActionResponse = {
 }
 
 const SigninForm = () => {
-  const router = useRouter()
   const [state, formAction, isPending] = useActionState<
     ActionResponse,
     FormData
   >(async (prevState, formData) => {
     const result = await signinUser(prevState, formData)
 
-    if (result.success) {
-      // Navigate to the dashboard on success
-      router.push('/dashboard')
-    }
-
     return result
   }, initialState)
 
   return (
-    <form className="bg-content1 border border-default-100 shadow-lg rounded-md p-3 flex flex-col gap-2 ">
+    <form
+      action={formAction}
+      className="bg-content1 border border-default-100 shadow-lg rounded-md p-3 flex flex-col gap-2 "
+    >
       <h3 className="my-4">Sign in</h3>
       <Input
         fullWidth

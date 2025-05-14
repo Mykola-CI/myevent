@@ -32,8 +32,6 @@ export const registerUser = async (
     const responseCookies = await cookies() // This provides ResponseCookies
     responseCookies.set(COOKIE_NAME, token) // Set the cookie
 
-    // Not executable but required by Typescript
-    // return { success: true, message: 'Registration successful' }
   } catch (e) {
     console.error(e)
     return { success: false, message: 'Failed to sign you up' }
@@ -56,9 +54,11 @@ export const signinUser = async (
     // Use ResponseCookies to set the cookie
     const responseCookies = await cookies() // This provides ResponseCookies
     responseCookies.set(COOKIE_NAME, token) // Set the cookie
-    return { success: true, message: 'Bravo! You are in' }
+
   } catch (e) {
     console.error(e)
     return { success: false, message: 'Failed to sign you in' }
   }
+   // Redirect to the dashboard on success
+  redirect('/dashboard')
 }
