@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import HeroUIProvider from './HeroUIProvider'
-import { cn } from "@heroui/react"
+import { Toaster } from 'react-hot-toast'
+import { cn } from '@heroui/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,22 @@ export default function RootLayout({
       <body
         className={`${inter.className} dark text-foreground bg-background h-screen w-screen`}
       >
-        <HeroUIProvider>{children}</HeroUIProvider>
+        <HeroUIProvider>
+          <Toaster
+            position="top-right"
+            toastOptions={{
+              className: cn(
+                'bg-content1 text-foreground border border-default-100 shadow-lg rounded-md',
+                'dark:bg-content1 dark:text-foreground dark:border-default-100'
+              ),
+              style: {
+                background: '#fff',
+                color: '#000',
+              },
+            }}
+          />
+          {children}
+        </HeroUIProvider>
       </body>
     </html>
   )

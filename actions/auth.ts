@@ -17,6 +17,8 @@ export type ActionResponse = {
   error?: string
 }
 
+const SUCCESS_COOKIE = 'dashboard_success_message'
+
 export const registerUser = async (
   _prevState: ActionResponse,
   formData: FormData
@@ -31,6 +33,13 @@ export const registerUser = async (
     // Use ResponseCookies to set the cookie
     const responseCookies = await cookies() // This provides ResponseCookies
     responseCookies.set(COOKIE_NAME, token) // Set the cookie
+     // Set a client-readable cookie for the success message
+    responseCookies.set(SUCCESS_COOKIE, 'Sign up successful!', {
+      path: '/',
+      httpOnly: false,
+      sameSite: 'lax',
+      maxAge: 10, // expire quickly
+    })
 
   } catch (e) {
     console.error(e)
@@ -54,6 +63,13 @@ export const signinUser = async (
     // Use ResponseCookies to set the cookie
     const responseCookies = await cookies() // This provides ResponseCookies
     responseCookies.set(COOKIE_NAME, token) // Set the cookie
+      // Set a client-readable cookie for the success message
+    responseCookies.set(SUCCESS_COOKIE, 'Sign in successful!', {
+      path: '/',
+      httpOnly: false,
+      sameSite: 'lax',
+      maxAge: 10,
+    })
 
   } catch (e) {
     console.error(e)
