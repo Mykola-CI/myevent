@@ -15,19 +15,21 @@ const initialState: ActionResponse = {
 }
 
 const SignupForm = () => {
-  const router = useRouter()
+  // const router = useRouter()
   const [state, formAction, isPending] = useActionState<
     ActionResponse,
     FormData
   >(async (prevState, formData) => {
     const result = await registerUser(prevState, formData)
 
-    if (result.success) {
-      // Navigate to the dashboard on success
-      router.push('/dashboard')
-    }
+    // if (result.success) {
+    //   // Navigate to the dashboard on success
+    //   router.push('/dashboard')
+    // }
 
     return result
+
+    
   }, initialState)
 
   return (

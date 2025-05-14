@@ -31,12 +31,15 @@ export const registerUser = async (
     // Use ResponseCookies to set the cookie
     const responseCookies = await cookies() // This provides ResponseCookies
     responseCookies.set(COOKIE_NAME, token) // Set the cookie
-    // Return success response instead of redirecting
-    return { success: true, message: 'Registration successful' }
+
+    // Not executable but required by Typescript
+    // return { success: true, message: 'Registration successful' }
   } catch (e) {
     console.error(e)
     return { success: false, message: 'Failed to sign you up' }
   }
+  // Redirect to the dashboard on success
+  redirect('/dashboard')
 }
 
 export const signinUser = async (
