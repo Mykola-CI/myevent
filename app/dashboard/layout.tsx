@@ -1,30 +1,28 @@
-'use client'
-
-import Shell from '@/components/Shell'
-import { usePathname } from 'next/navigation'
+import { getCurrentUser } from '@/utils/users'
 import DashboardSuccessToast from '@/components/DashboardSuccessToast'
+import { getAttendeesCountForDashboard } from '@/utils/attendees'
+import Shell from '@/components/Shell'
 
-const Dashboard = ({ children, events, rsvps }) => {
-  const path = usePathname()
+const DashboardLayout = async ({
+  children,
+  events,
+  rsvps,
+}: {
+  children: React.ReactNode
+  events: React.ReactNode
+  rsvps: React.ReactNode
+}) => {
+  const user = await getCurrentUser()
+  const count = await getAttendeesCountForDashboard(user.id)
 
   return (
-    <Shell>
+    <>
       <DashboardSuccessToast />
-      {path === '/dashboard' ? (
-        <div className="flex w-full h-full">
-          <div className="w-1/2 border-r border-default-50">{rsvps}</div>
-          <div className="w-1/2 flex flex-col">
-            <div className="border-b border-default-50 w-full h-1/2">
-              {events}
-            </div>
-            <div className="w-full h-1/2">{children}</div>
-          </div>
-        </div>
-      ) : (
-        <div>{children}</div>
-      )}
-    </Shell>
+      <Shell user={user} count={count} events={events} rsvps={rsvps}>
+        {children}
+      </Shell>
+    </>
   )
 }
 
-export default Dashboard
+export default DashboardLayout

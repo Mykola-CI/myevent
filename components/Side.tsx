@@ -3,7 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Logo from '@/images/pardy.png'
-import { Button } from "@heroui/react"
+import { Button, cn } from '@heroui/react'
+import { usePathname } from 'next/navigation'
 
 const links = [
   { route: '/dashboard', name: 'Home' },
@@ -13,9 +14,19 @@ const links = [
   { route: '/dashboard/settings', name: 'Settings' },
 ]
 
-const Side = () => {
-  const activeClass = 'bg-primary hover:bg-primary'
+const isActive = (path: string, route: string) => {
+  // all routes other than auth routes include "/dashboard"
+  // so handle that first
+  if (route === '/dashboard') {
+    return path === '/dashboard'
+  } else {
+    return path.includes(route)
+  }
+}
 
+const Side = ({ email }: { email?: string }) => {
+  const activeClass = `bg-primary hover:bg-primary`
+  const path = usePathname()
   return (
     <div className="w-full h-full px-3 relative">
       <div className="mb-12">
@@ -28,7 +39,10 @@ const Side = () => {
           <div className="w-full" key={link.route}>
             <Link href={link.route}>
               <div
-                className={`w-full h-full py-2 px-2 hover:bg-content1 rounded-lg `}
+                className={cn(
+                  'w-full h-full py-2 px-2 hover:bg-content1 rounded-lg',
+                  isActive(path, link.route) && activeClass
+                )}
               >
                 {link.name}
               </div>
@@ -37,6 +51,9 @@ const Side = () => {
         ))}
       </div>
       <div className="absolute bottom-0 w-full left-0 px-4">
+        {email && (
+          <div className="mb-2 text-xs text-gray-500 truncate">{email}</div>
+        )}
         <Button fullWidth variant="ghost">
           Sign Out
         </Button>
