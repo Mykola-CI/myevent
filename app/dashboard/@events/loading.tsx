@@ -1,4 +1,4 @@
-import { Spinner } from '@heroui/react'
+import { Spinner } from '@heroui/spinner'
 
 const EventsLoader = () => {
   return <Spinner />
