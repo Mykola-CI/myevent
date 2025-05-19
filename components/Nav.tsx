@@ -23,7 +23,7 @@ const Nav = () => {
             variant="ghost"
             size="sm"
             isLoading={isPending}
-            onClick={handleClick}
+            onPress={handleClick}
           >
             <CirclePlus size={16} />
           </Button>

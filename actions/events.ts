@@ -6,6 +6,7 @@ import { events } from '@/db/schema'
 import { delay } from '@/utils/delay'
 import { getCurrentUser } from '@/utils/users'
 import randomName from '@scaleway/random-name'
+import { revalidateTag } from 'next/cache'
 
 export const createNewEvent = async () => {
   await delay(1000)
@@ -17,5 +18,8 @@ export const createNewEvent = async () => {
     isPrivate: false,
     name: randomName('event', ' '),
   })
+
+  revalidateTag('events')
+  revalidateTag('dashboard:events')
 }
 
