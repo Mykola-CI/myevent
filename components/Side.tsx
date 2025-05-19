@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Logo from '@/images/pardy.png'
 import { Button, cn } from '@heroui/react'
 import { usePathname } from 'next/navigation'
+import { signout } from '@/actions/signout'
 
 const links = [
   { route: '/dashboard', name: 'Home' },
@@ -54,7 +55,7 @@ const Side = ({ email }: { email?: string }) => {
         {email && (
           <div className="mb-2 text-xs text-gray-500 truncate">{email}</div>
         )}
-        <Button fullWidth variant="ghost">
+        <Button onPress={() => signout()} fullWidth variant="ghost">
           Sign Out
         </Button>
       </div>
