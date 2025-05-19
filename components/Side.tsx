@@ -51,9 +51,9 @@ const Side = ({ email }: { email?: string }) => {
           </div>
         ))}
       </div>
-      <div className="absolute bottom-0 w-full left-0 px-4">
+      <div className="absolute bottom-3 w-full left-0 px-4">
         {email && (
-          <div className="mb-2 text-xs text-gray-500 truncate">{email}</div>
+          <div className="mb-2 ml-2 text-xs text-gray-500 truncate">{email}</div>
         )}
         <Button onPress={() => signout()} fullWidth variant="ghost">
           Sign Out

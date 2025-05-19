@@ -21,7 +21,7 @@ export const getEventsForDashboard = memoize(
         rsvps: true,
       },
       limit: 7,
-      orderBy: [asc(events.startOn)],
+      orderBy: [desc(events.startOn)],
     })
 
     return data ?? []
@@ -40,7 +40,7 @@ export const getAllEvents = memoize(
     await delay()
     return db.query.events.findMany({
       where: eq(events.createdById, userId),
-      orderBy: [asc(events.startOn)],
+      orderBy: [desc(events.startOn)],
     })
   },
   {

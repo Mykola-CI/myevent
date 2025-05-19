@@ -14,7 +14,7 @@ const EventPage = async ({ params }: EventPageProps) => {
 
   if (!event) redirect('/dashboard/events')
 
-  return <div>{event.name}</div>
+  return <div className="pt-8 pl-8">{event.name}</div>
 }
 
 export default EventPage
