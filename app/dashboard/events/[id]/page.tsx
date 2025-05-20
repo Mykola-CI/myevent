@@ -2,15 +2,14 @@ import { getOneEvent } from '@/utils/events'
 import { getCurrentUser } from '@/utils/users'
 import { redirect } from 'next/navigation'
 
-interface EventPageProps {
-  params: {
-    id: string;
-  };
+interface PageParams {
+  id: string
 }
 
-const EventPage = async ({ params }: EventPageProps) => {
+const EventPage = async ({ params }: { params: Promise<PageParams> }) => {
   const user = await getCurrentUser()
-  const event = await getOneEvent(user.id, params.id)
+  const { id } = await params
+  const event = await getOneEvent(user.id, id)
 
   if (!event) redirect('/dashboard/events')
 

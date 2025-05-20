@@ -60,7 +60,7 @@ export const getOneEvent = memoize(
   },
   {
     persist: true,
-    revalidateTags: (userId, eventId) => ['event', eventId],
+    revalidateTags: (eventId) => ['event', eventId],
     suppressWarnings: true,
     logid: 'event',
   }
